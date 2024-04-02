@@ -11,10 +11,6 @@ const PORT = process.env.PORT || 3000;
 
 const orders = []; // Array to store orders
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
-
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.post('/add-order', async (req, res, next) => {
@@ -47,4 +43,31 @@ app.get('/order/:id', async (req, res, next) => {
     return;
   }
   res.json(order);
+});
+
+app.put('/edit-order/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const { productName, category, status, description, price, quantity } =
+    req.body;
+  const orderIndex = orders.findIndex((o) => o.id === id);
+  if (orderIndex === -1) {
+    res.status(404).json({
+      message: 'status not found',
+    });
+    return;
+  }
+  orders[orderIndex] = {
+    ...orders[orderIndex],
+    productName,
+    category,
+    status,
+    description,
+    price,
+    quantity,
+  };
+  res.json(orders[orderIndex]);
+});
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
