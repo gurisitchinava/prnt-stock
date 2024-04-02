@@ -21,15 +21,15 @@
 <body class="bg-gray-100">
     <!-- Header section -->
     <header class="bg-white shadow">
-        <div class="container mx-auto px-4 py-6 header-content">
+        <div class="container px-4 py-6 mx-auto header-content">
             <h1 class="text-3xl font-semibold text-gray-800">Dashboard</h1>
             <!-- Add Order button -->
-            <button id="addOrderBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Add Order</button>
+            <a href="/add-order.html" id="addOrderBtn" class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">Add Order</a>
         </div>
     </header>
 
         <!-- Inside <main> tag in index.html -->
-    <main class="container mx-auto px-4 py-6">
+    <main class="container px-4 py-6 mx-auto">
         <!-- DataTable section -->
         <div id="orderTable" class="bg-white rounded-lg shadow">
             <table class="w-full table-auto">
@@ -66,14 +66,14 @@
             orders.forEach(order => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="border px-4 py-2">${order.productName}</td>
-                    <td class="border px-4 py-2">${order.category}</td>
-                    <td class="border px-4 py-2">${order.status}</td>
-                    <td class="border px-4 py-2">${order.description}</td>
-                    <td class="border px-4 py-2">${order.price}</td>
-                    <td class="border px-4 py-2">${order.quantity}</td>
-                    <td class="border px-4 py-2">
-                        <a href="/edit-order?orderId=${order.id}" class="edit-order-link">Edit</a>
+                    <td class="px-4 py-2 border">${order.productName}</td>
+                    <td class="px-4 py-2 border">${order.category}</td>
+                    <td class="px-4 py-2 border">${order.status}</td>
+                    <td class="px-4 py-2 border">${order.description}</td>
+                    <td class="px-4 py-2 border">${order.price}</td>
+                    <td class="px-4 py-2 border">${order.quantity}</td>
+                    <td class="px-4 py-2 border">
+                        <a href="/edit-order.html?orderId=${order.id}" class="edit-order-link">Edit</a>
                     </td>
                 `;
                 orderTableBody.appendChild(row);
@@ -82,19 +82,6 @@
 
         })
         .catch(error => console.error('Error fetching orders:', error));
-
-
-        // Add event listener for edit buttons
-        document.addEventListener('click', (event) => {
-            if (event.target.classList.contains('editBtn')) {
-                const orderId = event.target.dataset.orderId;
-                window.location.href = `/edit-order/${orderId}`;
-            }
-        });
-
-        document.getElementById('addOrderBtn').addEventListener('click', () => {
-            window.location.href = '/add-order'; // Navigate to the order form page
-        });
     </script>
 
 
